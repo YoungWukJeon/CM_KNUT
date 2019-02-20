@@ -1,0 +1,79 @@
+<!--
+  Generated template for the UserForm page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+2017.05.11 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.22]
+      1. clearInput 속성이 있는 ion-input 태그 내에 blur 이벤트 추가
+-->
+
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>회원정보 입력</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <div class="form_area">
+
+    <ion-card>
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">이름(닉네임)</ion-label>
+        <ion-input type="text" placeholder="당신의 이름(닉네임)은 무엇인가요?" [(ngModel)]="name" (input)="change()" (blur)="change()" clearInput style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card style="height: 130px;">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">성별</ion-label>
+      </ion-item>
+      
+      <ion-list radio-group [(ngModel)]="gender">
+        <ion-item style="font-size: 1.3rem;">
+          <ion-label>남성</ion-label>
+          <ion-radio value="male" (ionSelect)="change()"></ion-radio>
+        </ion-item>
+        <ion-item style="font-size: 1.3rem;">
+          <ion-label>여성</ion-label>
+          <ion-radio value="female" (ionSelect)="change()"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+    
+    <ion-card>
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">생년월일</ion-label>
+        <ion-datetime displayFormat="YYYY년 MM월 DD일" pickerFormat="YYYY-MM-DD" [(ngModel)]="birth" (ionChange)="change()" cancelText="취소" doneText="확인" placeholder="OOOO년 O월 OO일" style="font-size: 1.3rem;"></ion-datetime>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">비밀번호 입력</ion-label>
+        <ion-input type="password" placeholder="비밀번호" [(ngModel)]="pw" (input)="change()" (blur)="change()" clearInput style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">비밀번호 확인</ion-label>
+        <ion-input type="password" placeholder="비밀번호 확인" [(ngModel)]="pwconfirm" (input)="change()" (blur)="change()" clearInput style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <button ion-button full round [disabled]="flag_c" color="customBtn1" (click)="complete()">완료</button>
+
+  </div>
+
+</ion-content>

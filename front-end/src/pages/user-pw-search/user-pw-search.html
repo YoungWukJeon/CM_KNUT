@@ -1,0 +1,68 @@
+<!--
+  Generated template for the UserPwSearch page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+  2017.06.28 made by Youngwuk Jeon
+
+  <Update Log>
+    
+-->
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>비밀번호 변경</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <div class="email_area">
+
+    <ion-card *ngIf="!flag_c2">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">이메일 주소</ion-label>
+        <ion-input type="email" placeholder="본인 인증할 메일 주소" clearInput [(ngModel)]="emailAddr" style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+    
+    <ion-card *ngIf="flag_ca">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">인증번호 입력</ion-label>
+        <ion-badge item-right color="light" id="remainCount" style="color: red;"></ion-badge>
+        <ion-input type="text" placeholder="인증번호 입력" maxLength="3" clearInput [(ngModel)]="certNumber" (input)="certInput()" (blur)="certInput()" style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="flag_c2">
+      <ion-item>
+        <ion-label color="dark" style="font-weight: bold;">인증되었습니다.</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="flag_c2">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">새 비밀번호 입력</ion-label>
+        <ion-input type="password" placeholder="새 비밀번호" [(ngModel)]="pw" (input)="change()" (blur)="change()" clearInput style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="flag_c2">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">새 비밀번호 확인</ion-label>
+        <ion-input type="password" placeholder="새 비밀번호 확인" [(ngModel)]="pwconfirm" (input)="change()" (blur)="change()" clearInput style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <button *ngIf="!flag_c2" ion-button full round [disabled]="flag_sn" color="customBtn1" (click)="sendNumber()">인증번호 보내기</button>
+    <button ion-button full round [disabled]="flag_c1" color="customBtn1" (click)="confirm()">확인</button>
+
+  </div>
+
+</ion-content>

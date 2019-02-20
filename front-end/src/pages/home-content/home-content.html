@@ -1,0 +1,196 @@
+<!--
+  Generated template for the HomeContent page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons left menuToggle>
+      <button ion-button menuTogle>
+        <ion-icon ios="ios-menu" md="ios-menu" wp="ios-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title center>CM KNUT</ion-title>
+
+    <ion-buttons right (click)="content_search()">
+      <button ion-button icon-only color="">
+        <ion-icon ios="md-search" md="md-search" wp="md-search"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <div class="tab">
+    <div class="tab_content" (click)="goContent()">글</div>
+    <div class="tab_content tab_content_selected" (click)="goMap()">지도</div>
+  </div>
+
+  <!--<ion-tabs selectedIndex="0" tabsPlacement="top">
+    <ion-tab tabTitle="글" [root]="tab1Root" ></ion-tab>
+    <ion-tab tabTitle="지도" [root]="tab2Root" ></ion-tab>
+  </ion-tabs>-->
+
+
+  <!--content 전체의 padding을 위한 div-->
+  <div style="padding: 0 8px 0 8px;">
+    <ion-card>
+      <ion-item class="filter">
+        <ion-label style="font-size: 1.5rem; font-weight: bold;">게시글 글 필터</ion-label>
+        <ion-badge item-right style="margin: 0; background-color: white;">
+          <button ion-button round color="customBtn" (click)="adapt()" style="height: 25px; padding: 0 10px; font-size: 1.2rem; font-weight: bold;">적용</button>
+        </ion-badge>
+      </ion-item>
+
+      <ion-buttons class="category_btns">
+        <!--스크롤 생성을 위한 div-->
+        <div style="overflow: auto; white-space: nowrap;">
+          <button *ngFor="let categoryBtn of categoryBtns" ion-button round [color]="categoryBtn.selected? categoryBtn.color: 'darkLight'" (click)="categorySelect(categoryBtn)" class="category_btn">{{categoryBtn.name}}</button>
+        </div>
+      </ion-buttons>
+    </ion-card>
+
+    <!--추가(로그인 되어있을때 띄워줘야함 *ngIf)-->
+    <ion-card *ngIf="user_no != null" (click)="write()" style="height: 50px;">
+      <ion-item no-lines style="background: none; margin: 0;">
+        <ion-avatar item-left class="profile_img" style="background: none; margin: 2px 0 0 -5px;">
+          <!--<img src="assets/image/testImg4.png">-->
+          <img [src]="myProfileSrc">
+        </ion-avatar>
+        <p text-center style="font-weight: bold;">작성할 글이 있으신가요?</p>
+      </ion-item>
+    </ion-card>
+
+    <!--<ion-card color="customBtn1" style="height: 25px; padding: 3px 10px;">
+      <span style="font-weight: bold; color: #ffffff">289건 매칭</span>
+    </ion-card>-->
+
+
+
+    <ion-list style="margin-bottom: 0px;">
+      <ion-card *ngFor="let item of viewItems">
+
+        <ion-item>
+          <ion-avatar item-left (click)="userinfo(item.user_no)" class="profile_img">
+            <img [src]="item.profileSrc">
+          </ion-avatar>
+
+          <h2 style="font-size: 1.2rem; font-weight: bold;" (click)="userinfo(item.user_no)">{{item.userName}}</h2>
+          <p style="color: #696969; font-size: 1rem;">{{getTimeText(item.registTime)}}</p>
+
+          <ion-badge item-right [color]="item.category == '공지'? 'customBtn2': (item.category == '이벤트'? 'customBtn3': '')" class="post_type">{{item.category}}</ion-badge>
+        </ion-item>
+
+        <div *ngIf="item.resourceSrc[0][0] != null" (click)="navigate(item)" class="contentImg">
+          <img [src]="item.resourceSrc[0][0]" />
+          <div *ngIf="item.resourceSrc[0].length > 1" class="black_cover "><div class="centered">+ {{item.resourceSrc[0].length - 1}}</div></div>
+        </div>
+
+        <ion-label style="margin: 12px; font-size: 2.5rem; font-weight: bold;" (click)="navigate(item)">
+          {{item.title}}
+        </ion-label>
+
+        <ion-row>
+
+          <ion-col>
+            <button ion-button color="dark" read-only clear icon-left>
+              <ion-icon ios="md-eye" md="md-eye" wp="md-eye"  (click)="alert('gg')"></ion-icon>
+              {{item.count}}
+            </button>
+          </ion-col>
+
+          <ion-col>
+            <!--<button ion-button color="dark" clear icon-left (click)="like(item)">-->
+              <!--<ion-icon ios="md-thumbs-up" md="md-thumbs-up" wp="md-thumbs-up"></ion-icon>-->
+              <!--{{item.like}}-->
+            <!--</button>-->
+            <button ion-button clear (click)="like(item)">
+              <ion-icon item-left ios="md-thumbs-up" md="md-thumbs-up" wp="md-thumbs-up" [color]="item.yours? 'customBtn1': 'dark'"></ion-icon>
+              <span style="margin-left: 5px; color: #222;">{{item.like}}</span>
+            </button>
+          </ion-col>
+
+          <ion-col>
+            <button ion-button color="dark" clear icon-left (click)="reply(item)">
+              <ion-icon ios="ios-text-outline" md="ios-text-outline" wp="ios-text-outline"></ion-icon>
+              {{item.comment}}
+            </button>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-card>
+    </ion-list>
+
+      <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">-->
+          <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+      <!--</ion-infinite-scroll>-->
+
+    <ion-infinite-scroll *ngIf="hasMoreData" (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Loading more data…">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+  </div>
+
+  <!--<ion-card>-->
+
+  <!--<ion-item>-->
+  <!--<ion-avatar item-left>-->
+  <!--<img src="../../assets/img/프로필.png">-->
+  <!--</ion-avatar>-->
+  <!--<span style="display: inline-block">-->
+  <!--<h2>김재호</h2>-->
+  <!--<p>4시간 전</p>-->
+  <!--</span>-->
+  <!--<span style="display: inline-block; float: right">-->
+  <!--<img src="../../assets/img/이벤트.png">-->
+  <!--</span>-->
+  <!--</ion-item>-->
+
+  <!--<img name={{content_id}} src="../../assets/img/내용.png" (click)="navigate(this)">-->
+
+  <!--<ion-card-content>-->
+  <!--<p>여기 공사중</p>-->
+  <!--</ion-card-content>-->
+
+  <!--<ion-row>-->
+  <!--<ion-col>-->
+  <!--<button ion-button color="primary" clear small icon-left>-->
+  <!--<ion-icon name='eye'></ion-icon>-->
+  <!--36-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--<ion-col>-->
+  <!--<button ion-button color="primary" clear small icon-left>-->
+  <!--<ion-icon name='thumbs-up'></ion-icon>-->
+  <!--30-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--<ion-col>-->
+  <!--<button ion-button color="primary" clear small icon-left>-->
+  <!--<ion-icon name='text'></ion-icon>-->
+  <!--64-->
+  <!--</button>-->
+  <!--</ion-col>-->
+  <!--</ion-row>-->
+
+  <!--</ion-card>-->
+
+
+</ion-content>

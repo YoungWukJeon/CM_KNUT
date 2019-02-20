@@ -1,0 +1,31 @@
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons left menuToggle>
+      <button ion-button menuTogle>
+        <ion-icon ios="ios-menu" md="ios-menu" wp="ios-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title center>Title</ion-title>
+
+    <ion-buttons right (click)="content_search()">
+      <button ion-button icon-only color="">
+        <ion-icon ios="md-search" md="md-search" wp="md-search"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-tabs selectedIndex="0" tabsPlacement="top">
+    <ion-tab tabTitle="글" [root]="tab1Root" ></ion-tab>
+    <ion-tab tabTitle="지도" [root]="tab2Root" ></ion-tab>
+  </ion-tabs>
+
+</ion-content>

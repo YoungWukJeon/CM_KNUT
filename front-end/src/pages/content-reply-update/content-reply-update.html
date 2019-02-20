@@ -1,0 +1,44 @@
+<!--
+  Generated template for the ContentReplyUpdate page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+  2017.05.18 made by Youngwuk Jeon
+
+  <Update Log>
+      
+
+-->
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss(false)" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>수정하기</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <ion-card>
+    <ion-item>
+      <ion-input type="text" placeholder="수정할 내용을 입력하세요." [(ngModel)]="content" clearInput style="font-size: 1.3rem;"></ion-input>
+    </ion-item>
+
+    <ion-item style="text-align-last: right;">
+      <button ion-button clear color="darkLight2" (click)="dismiss(false)" style="font-weight: bold; margin-right: 10px;">취소</button>
+      <button ion-button clear color="darkLight2" (click)="dismiss(true)" style="font-weight: bold;">수정</button>
+    </ion-item> 
+  </ion-card>
+
+</ion-content>

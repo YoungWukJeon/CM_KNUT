@@ -1,0 +1,24 @@
+/*
+2017.06.08 made by Youngwuk Jeon
+
+  <Update Log>
+    
+*/
+
+
+page-content-detail-sub-content {
+    .card-ios, .card-md, .card-wp {
+        width: 100%;
+        height: auto;
+        margin: 0 0 0 0;
+    }
+
+    .expired {
+        padding: 3px;
+        font-size: 1.8rem;
+        line-height: 1.5;
+        color: white;
+        background-color: #f55050;
+        border-radius: 8px;
+    }
+}

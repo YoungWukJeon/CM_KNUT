@@ -1,0 +1,106 @@
+<!--
+  Generated template for the Login page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<!--
+  2017.05.07 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.11]
+      1. 이메일 입력란에 clearInput 속성 추가
+      2. 비밀번호 입력란에 clearInput 속성 추가
+    [2017.05.18]
+      1. header 쪽에 토글메뉴, 찾기 버튼 추가
+    [2017.06.26]
+      1. Modal로 띄우기 위해 상단의 navi bar와 search 버튼 제거
+-->
+
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!--<ion-buttons left menuToggle>
+      <button ion-button menuTogle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>-->
+
+    <ion-title center color="custom1">Title</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div class="logo_area">
+    <img width="300" height="120" src="assets/logo/logo_example.png" />
+  </div>
+
+  <div class="login_area">
+
+    <ion-list>
+      <ion-item>
+        <ion-label floating>이메일 주소</ion-label>
+        <ion-input type="email" clearInput [(ngModel)]="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" clearInput [(ngModel)]="password"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button round color="customBtn1" class="button regist" (click)="regist()">회원가입</button>
+    <button ion-button round color="customBtn1" class="button" (click)="login()">로그인</button>
+
+    <div class="forget_pw" (click)="resetPw()">비밀번호를 잊으셨나요?</div>
+
+    <div class="divider">
+      <div>
+        <div class="gray_line" style="background-image: url('assets/image/line_gray.png');"></div>
+      </div>
+      <span>또는</span>
+      <div>
+        <div class="gray_line" style="background-image: url('assets/image/line_gray.png');"></div>
+      </div>
+    </div>
+
+    <div class="tp_label">
+      소셜 계정을 이용하여 쉽게 로그인해보세요.
+    </div>
+
+    <ion-list class="tp_login_area">
+      <div class="tp_login facebook_area">
+        <img width="60" height="60" src="assets/btn_icon/icon_facebook.png" (click)="tpLogin('facebook')"/>
+      </div>
+
+      <div class="tp_login kakao_area">
+        <img width="60" height="60" src="assets/btn_icon/icon_kakao.png" (click)="tpLogin('kakao')"/>
+      </div>
+
+      <div class="tp_login naver_area">
+        <img width="60" height="60" src="assets/btn_icon/icon_naver.png" (click)="tpLogin('naver')"/>
+      </div>
+
+      <div class="tp_login google_area">
+        <img width="60" height="60" src="assets/btn_icon/icon_google.png" (click)="tpLogin('google')"/>
+      </div>
+    </ion-list>
+
+  </div>
+
+  
+
+</ion-content>

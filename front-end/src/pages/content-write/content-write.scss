@@ -1,0 +1,85 @@
+/*
+2017.05.12 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.06.07]
+        1. upload_img에 object-fit: contain; 속성 추가
+
+*/
+
+
+page-content-write {
+
+    .card-ios, .card-md, .card-wp {
+        width: 100%;
+        height: auto;
+        margin: 0 0 10px 0;
+    }
+
+    .marker_badge {
+        width: 30px; 
+        height: 30px; 
+        padding: 0px;
+    }
+
+    .category_btns {
+        margin: 0 15px;
+        // text-align-last: center;    // 전체 컴포넌트 가운데 정렬
+    }
+
+    .category_btn {
+        width: 80px;
+        height: 30px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .datetime-md .datetime-placeholder, .datetime-ios .datetime-placeholder, .datetime-wp .datetime-placeholder{
+        color: white;
+    }
+    
+    .expire_date {
+        margin: 5px 0;
+        padding: 5px;
+        color: white; 
+        font-weight: bold; 
+        text-align: center; 
+        font-size: 1.3rem; 
+        background-color: rgb(68, 114, 196);
+        border-radius: 8px;
+    }
+
+    .content {
+        margin: 5px 0px;
+        padding: 0 5px;
+        font-size: 1.3rem;
+        border: 1px solid rgb(68, 114, 196);
+        border-radius: 5px;
+    }
+
+    .upload_img {
+        display: inline-block;
+        margin-right: 5px;
+        width: 40px;
+        height: 40px;
+        border: solid 1px #c9c9c9;
+        border-radius: 10px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        // object-fit: contain;
+    }
+
+    .upload_img img {
+        width: 100%;
+        height: 100%;
+        padding: 20%;
+    }
+
+    .sub_btn {
+        margin: 10px 5px; 
+        font-size: 1.2rem; 
+        font-weight: bold;
+    }
+
+
+}

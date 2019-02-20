@@ -1,0 +1,142 @@
+<!--
+  Generated template for the UserInfo page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+2017.05.11 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.18]
+      1. header 쪽에 토글메뉴, 찾기 버튼 추가
+    [2017.05.20]
+      1. 기존의 값들을 ts 연동용 값으로 변경
+    [2017.05.21]
+      1. 내가 쓴 게시글을 보여주는 UI 변경
+    [2017.06.26]
+      1. 자신의 정보를 보는 경우가 아닐 경우 업데이트, 글쓰기 버튼 제거
+      2. Modal로 띄우기 위해 상단의 navi bar와 search 버튼 제거
+    [2017.07.03]
+      1. 회원의 정보 부분에 성별과 생년월일 추가
+    [2017.07.12]
+      1. 회원탈퇴 로직 추가
+-->
+
+
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!--<ion-buttons left menuToggle>
+      <button ion-button menuTogle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>-->
+
+    <ion-title center color="custom1">회원 정보</ion-title>
+
+    <!--<ion-buttons right (click)="content_search()">
+      <button ion-button icon-only color="royal">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>-->
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+    
+    <div class="bgImg">
+      <!--<img src="assets/image/testImg1.jpg" />-->
+      <img [src]="userinfo.bgImg" />      
+      <!--<div class="black_frame"></div>-->
+    </div>
+
+    <ion-card style="height: 180px; margin-top: -60px;">
+      <img *ngIf="userinfo.type=='f'" class="login_icon" src="assets/btn_icon/icon_facebook.png" />
+      <img *ngIf="userinfo.type=='k'" class="login_icon" src="assets/btn_icon/icon_kakao.png" />
+      <img *ngIf="userinfo.type=='n'" class="login_icon" src="assets/btn_icon/icon_naver.png" />
+      <img *ngIf="userinfo.type=='g'" class="login_icon" src="assets/btn_icon/icon_google.png" />
+    
+      <div class="profile_img">
+        <!--<img src="assets/image/testImg2.jpg" />-->
+        <img [src]="userinfo.profileImg" />
+      </div>
+      
+      <ion-item>
+        <ion-label style="font-weight: bold; font-size: 2.5rem; text-align: center;">{{userinfo.nickname}}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="myInfo">
+      <ion-buttons style="height: 60px; padding-top: 10px;">
+        <button ion-button clear (click)="write()" class="button" style="margin-left: 2%;">
+          <img src="assets/btn_icon/icon_post.png" />
+          게시
+        </button>
+
+        <button ion-button clear (click)="update()" class="button">
+          <img src="assets/btn_icon/icon_info_update.png" />
+          정보<br>
+          업데이트
+        </button>
+
+        <button ion-button clear (click)="unlink()" class="button">
+          <img src="assets/btn_icon/icon_unlink.png" />
+          회원<br>
+          탈퇴
+        </button>
+      </ion-buttons>
+    </ion-card>
+
+    <ion-card>
+      <div class="content_box" style="margin-top: 5px;">
+        <ion-label stacked color="customBtn1" class="content_header">소개글</ion-label>
+        <div class="intro">{{userinfo.intro}}</div>
+      </div>
+
+      <div *ngIf="userinfo.gender != null" class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header">성별</ion-label>
+        <div class="intro">{{userinfo.gender}}</div>
+      </div>
+
+      <div *ngIf="userinfo.birth != null" class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header">생년월일</ion-label>
+        <div class="intro">{{userinfo.birth}}<span *ngIf="userinfo.age != ''">{{" (" + userinfo.age + "살)"}}</span></div>
+      </div>
+
+      <div class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header">정보</ion-label>
+        <div *ngFor="let content of userinfo.info.split(';')" class="intro">{{content}}<hr *ngIf="content.length > 0" style="background-color: rgba(0, 0, 0, 0.3);"></div>
+      </div>
+    </ion-card>
+
+    <ion-card>
+      <ion-label color="customBtn1" style="margin-left: 12px; font-size: 1.2rem; font-weight: bold;">게시글 {{userinfo.contents.length}}건</ion-label>
+
+      <ion-list>
+        <ion-item *ngFor="let issue of userinfo.contents" class="issue" (click)="viewDetail(issue)">
+          <ion-badge item-left [color]="issue.category == '공지'? 'customBtn2': (issue.category == '이벤트'? 'customBtn3': '')" class="post_type">{{issue.category}}</ion-badge>
+
+          <ion-label style="font-weight: bold; font-size: 1.5rem;">{{issue.name}}</ion-label>
+
+          <ion-badge item-right color="transparent" style="margin: 0; padding: 0;">
+            <button ion-button icon-only clear color="transparent">
+              <ion-icon ios="ios-arrow-forward" md="ios-arrow-forward" wp="ios-arrow-forward" color="darkLight2"></ion-icon>
+            </button>
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card>  
+
+</ion-content>

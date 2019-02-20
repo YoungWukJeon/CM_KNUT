@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>지도 크게 보기</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <adm-map [latitude]="36.9692523" [longitude]="127.8700678" level=4 style="height: calc(100%);">
+    <adm-marker *ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" [image]="icon"></adm-marker>
+  </adm-map>
+
+</ion-content>

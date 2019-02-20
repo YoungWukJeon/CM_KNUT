@@ -1,0 +1,111 @@
+  <!--
+  Generated template for the ContentDetailFacility page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>CM KNUT</ion-title>
+  </ion-navbar>
+
+  <ion-card style="height: 50px; margin-bottom: 0px;">
+    <ion-item style="height: inherit;">
+      <ion-badge item-left color="customBtn8" class="post_type">장소</ion-badge>
+      <ion-label style="font-weight: bold; font-size: 1.5rem;">{{item.name}}</ion-label>
+
+      <!--관리자용 기능(장소에 대한 수정/삭제)-->
+      <ion-badge item-right style="background-color: white;">
+        <ion-buttons>
+          <button ion-button clear (click)="update()" style="font-size: 1.2rem; color: #696969;">수정</button>
+          <button ion-button clear (click)="delete()" style="font-size: 1.2rem; color: #696969;">삭제</button>
+        </ion-buttons>
+      </ion-badge>
+    </ion-item>
+  </ion-card>
+</ion-header>
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <ion-card style="margin-top: 5px;">
+    <ion-label style="margin-left: 12px; font-size: 1.5rem; font-weight: bold;">정보</ion-label>
+
+    <div class="content_area">
+      <ion-label color="customBtn1" class="content_header">분류</ion-label>
+      장소 > {{item.content.category}}
+    </div>
+    <hr>
+
+    <div class="content_area">
+      <ion-label color="customBtn1" class="content_header">주소</ion-label>
+      {{item.content.addr}}
+    </div>
+    <hr>
+
+    <div class="content_area">        
+      <ion-label color="customBtn1" class="content_header">전화번호</ion-label>
+      {{item.content.tel}}
+    </div>
+    <hr>
+
+    <div class="content_area">
+      <ion-label color="customBtn1" class="content_header">장소 정보</ion-label>
+
+      <!--개행을 구분하여 표시...ts파일에서의 개행조작이 안먹힘-->
+      <div *ngFor="let line of item.content.info.split('\r\n')">{{line}}<br/></div>
+    </div>
+    <hr>
+
+    <div *ngIf="item.content.resourceSrc[0].length > 0" style="margin-bottom: 10px;">
+      <ion-label color="customBtn1" class="content_header" style="margin-left: 16px;">장소 이미지</ion-label>
+
+      <div class="resource">
+        <img [src]="item.content.resourceSrc[0][currentResIndex]" />
+
+        <!--.resource 영역 내의 모든 컴포넌트들이 absolute의 위치를 가지므로 img보다 앞에 생성되면 이벤트가 안먹음-->
+        <div *ngIf="(0 < currentResIndex)" (click)="imageChange(false)" class="img_changer" style="left: 20px;">
+          <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back" color="light"></ion-icon>
+        </div>
+
+        <div *ngIf="(item.content.resourceSrc[0].length > currentResIndex + 1)" (click)="imageChange(true)" class="img_changer" style="right: 20px;">
+          <ion-icon ios="ios-arrow-forward" md="ios-arrow-forward" wp="ios-arrow-forward" color="light"></ion-icon>
+        </div>
+
+        <div class="img_counter">{{currentResIndex + 1}} / {{item.content.resourceSrc[0].length}}</div>
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-card style="height: 50%; margin-top: 5px;">
+    <ion-item class="map_wrapper">
+      <ion-label style="font-size: 1.5rem; font-weight: bold; ">위치</ion-label>
+      <ion-badge item-right style="background-color: white;" >
+        <button ion-button clear color="CustomBtn" (click)="showBigMap()" style="font-size: 1.2rem; font-weight: bold;">크게 보기 ></button>
+      </ion-badge>
+    </ion-item>
+
+    <adm-map class="map-small" [latitude]="36.9692523" [longitude]="127.8700678" level="5">
+      <!--<adm-marker [latitude]="item.latitude" [longitude]="item.longitude" [image]="item.icon"></adm-marker>-->
+      <adm-marker *ngFor="let marker of item.markers" [latitude]="marker.lat" [longitude]="marker.lng" [image]="item.icon"></adm-marker>
+    </adm-map>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-label style="margin-left: 12px; font-size: 1.5rem; font-weight: bold;">이 장소 근처에서 발생한 이슈 {{item.issue.length}}건</ion-label>
+
+    <ion-list *ngFor="let issue of item.issue">
+      <ion-item  class="issue" (click)="viewDetail(issue)">
+        <ion-badge item-left [color]="issue.category == '공지'? 'customBtn2': (issue.category == '이벤트'? 'customBtn3': '')" class="post_type">{{issue.category}}</ion-badge>
+
+        <ion-label style="font-weight: bold; font-size: 1.5rem;">{{issue.title}}</ion-label>
+
+        <ion-badge item-right color="transparent" style="width: 100px; margin: 0; color: #696969; font-size: 1rem;">
+          <!--개행을 구분하여 표시...ts파일에서의 개행조작이 안먹힘-->
+          <div *ngFor="let line of getTimeText(issue.registTime).split('\r\n')">{{line}}<br/></div>
+        </ion-badge>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

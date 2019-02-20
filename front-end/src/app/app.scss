@@ -1,0 +1,70 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/*
+2017.05.15 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.18]
+        1. 메뉴의 width를 100%로 조정
+
+*/
+
+.menu-inner {
+    width: 100%;
+}
+
+/****************************************/
+// content-write
+.custom_alert {
+
+    .alert-wrapper {
+        border-radius: 20px;
+    }
+
+    .alert-head {
+        padding: 12px;
+    }
+
+    .alert-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .alert-message {
+        font-size: 1.2rem;
+        padding: 0 12px 12px 12px;
+        text-align: left;
+        color: #696969;
+    }
+    
+    .alert-radio-label {
+        font-weight: bold;
+    }
+
+}
+
+.custom_alert_btn {
+
+    .button-inner {
+        color: rgb(68, 114, 196);
+        font-weight: bold;
+    }
+    
+}
+/****************************************/

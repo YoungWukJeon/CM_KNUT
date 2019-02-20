@@ -1,0 +1,146 @@
+<!--
+  Generated template for the UserInfo page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+2017.07.03 made by Youngwuk Jeon
+
+  <Update Log>
+-->
+
+
+<ion-header>
+
+  <ion-toolbar>
+
+    <ion-buttons left>
+      <button ion-button (click)="cancel()" color="customBtn1" style="font-weight: bold; font-size: 1.2rem">취소하기</button>
+    </ion-buttons>
+
+    <!--<ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>-->
+
+    <ion-title center color="custom1">회원 정보 수정</ion-title>
+
+    <ion-buttons right>
+      <button ion-button (click)="update()" color="customBtn1" style="font-weight: bold; font-size: 1.2rem">수정하기</button>
+    </ion-buttons>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+    
+    <div class="bgImg">
+      <img [src]="imgs[1].src" (click)="chooseImage(imgs[1])"/>      
+    </div>
+
+    <ion-card style="height: 180px; margin-top: -60px;">
+      <img *ngIf="userinfo.type=='f'" class="login_icon" src="assets/btn_icon/icon_facebook.png" />
+      <img *ngIf="userinfo.type=='k'" class="login_icon" src="assets/btn_icon/icon_kakao.png" />
+      <img *ngIf="userinfo.type=='n'" class="login_icon" src="assets/btn_icon/icon_naver.png" />
+      <img *ngIf="userinfo.type=='g'" class="login_icon" src="assets/btn_icon/icon_google.png" />
+    
+      <div class="profile_img">
+        <img [src]="imgs[0].src" (click)="chooseImage(imgs[0])"/>
+      </div>
+
+      <ion-item style="padding-left: 30px; text-align-last: center;">
+        <ion-input type="text" placeholder="닉네임 입력" maxlength="20" [(ngModel)]="userinfo.nickname" clearInput style="font-weight: bold; font-size: 2.5rem; text-align: center;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <div class="content_box" style="margin-top: 5px; padding-right: 16px;">
+        <ion-label stacked color="customBtn1" class="content_header">소개글</ion-label>
+        <ion-textarea placeholder="소개글을 입력하세요." [(ngModel)]="userinfo.intro" rows="5" class="content" style="margin-top: 12px;"></ion-textarea>
+      </div>
+
+      <div class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header">성별</ion-label>
+
+        <ion-item style="padding-left: 0; padding-right: 16px; font-size: 1.5rem; font-weight: bold;">
+          <ion-label>비공개</ion-label>
+          <ion-checkbox color="blue" [(ngModel)]="userinfo.genderChecked"></ion-checkbox>
+        </ion-item>
+
+        <ion-list radio-group [(ngModel)]="userinfo.gender" style="margin-top: 8px;">
+          <ion-item style="font-size: 1.3rem;">
+            <ion-label>남성</ion-label>
+            <ion-radio [disabled]="userinfo.genderChecked" value="male"></ion-radio>
+          </ion-item>
+          <ion-item style="font-size: 1.3rem;">
+            <ion-label>여성</ion-label>
+            <ion-radio [disabled]="userinfo.genderChecked" value="female"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header" style="margin-bottom: 8px;">생년월일</ion-label>
+
+        <ion-item style="padding-left: 0; padding-right: 16px; font-size: 1.5rem; font-weight: bold;">
+          <ion-label>비공개</ion-label>
+          <ion-checkbox color="blue" [(ngModel)]="userinfo.birthChecked"></ion-checkbox>
+        </ion-item>
+
+        <ion-item style="padding-left: 0; padding-right: 16px;">
+          <ion-datetime [disabled]="userinfo.birthChecked" displayFormat="YYYY년 MM월 DD일" pickerFormat="YYYY-MM-DD" [(ngModel)]="userinfo.birth" cancelText="취소" doneText="확인" placeholder="OOOO년 O월 OO일" style="font-size: 1.3rem;"></ion-datetime>
+        </ion-item>
+      </div>
+
+      <div class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header" style="margin-bottom: 8px;">정보</ion-label>
+
+        <ion-item *ngFor="let content of userinfo.info" class="intro" style="padding-left: 0; padding-right: 16px;">
+          <ion-input type="text" placeholder="해당 정보의 내용을 적어주세요." clearInput maxlength="100" [(ngModel)]="content.content" style="font-size: 1.3rem;"></ion-input>
+
+          <ion-badge color="transparent" item-right (click)="removeItem(content)">
+            <ion-icon ios="md-close" md="md-close" wp="md-close" color="customBtn1"></ion-icon>
+          </ion-badge>
+
+          <hr>
+        </ion-item>
+
+        <!--정보 추가 버튼-->
+        <ion-buttons style="text-align-last: center;">
+          <button ion-button icon-left clear (click)="addItem()" style="font-size: 1.2rem; font-weight: bold;">
+            <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn1"></ion-icon>
+            정보 추가
+          </button>
+        </ion-buttons>
+      </div>
+    </ion-card>
+
+    <ion-card>
+      <div class="content_box" style="margin-top: 5px;">
+        <ion-label stacked color="customBtn1" class="content_header">현재 비밀번호 입력</ion-label>
+        <ion-item style="padding-left: 0; padding-right: 16px;">
+          <ion-input type="password" placeholder="현재 비밀번호 입력" [(ngModel)]="oldPw" clearInput style="font-size: 1.3rem;"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header">새 비밀번호 입력</ion-label>
+        <ion-item style="padding-left: 0; padding-right: 16px;">
+          <ion-input type="password" placeholder="새 비밀번호 입력" [(ngModel)]="newPw" clearInput style="font-size: 1.3rem;"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="content_box">
+        <ion-label stacked color="customBtn1" class="content_header">새 비밀번호 확인</ion-label>
+        <ion-item style="padding-left: 0; padding-right: 16px;">
+          <ion-input type="password" placeholder="새 비밀번호 확인" [(ngModel)]="newPwConfirm" clearInput style="font-size: 1.3rem;"></ion-input>
+        </ion-item>
+      </div>
+    </ion-card>  
+
+</ion-content>

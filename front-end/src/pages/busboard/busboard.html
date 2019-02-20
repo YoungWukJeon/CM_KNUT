@@ -1,0 +1,78 @@
+<!--
+  Generated template for the Busboard page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar>
+
+      <ion-buttons left>
+        <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+            <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+        </button>
+        </ion-buttons>
+
+    <!--<ion-buttons left menuToggle>
+      <button ion-button menuTogle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>-->
+
+    <ion-title center color="custom1">CM KNUT</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="grid-basic-page">
+
+    <ion-label style="margin-left: 12px; font-size: 1.5rem; font-weight: bold;">순환버스 시간표</ion-label>
+
+    <ion-label color="customBtn1" style="margin: 10px 20px; font-size: 1.3rem; font-weight: bold;">시외버스터미널 >>> 교통대</ion-label>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div>출발 시간</div>
+            </ion-col>
+            <ion-col>
+                <div>도착 시간</div>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item_0 of item_0">
+            <ion-col>
+                <div>{{item_0.dep_time}}</div>
+            </ion-col>
+            <ion-col>
+                <div>{{item_0.arr_time}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <hr>
+
+    <ion-label color="customBtn1" style="margin: 10px 20px; font-size: 1.3rem; font-weight: bold;">교통대 >>> 시외버스터미널</ion-label>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div>출발 시간</div>
+            </ion-col>
+            <ion-col>
+                <div>도착 시간</div>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item_1 of item_1">
+            <ion-col>
+                <div>{{item_1.dep_time}}</div>
+            </ion-col>
+            <ion-col>
+                <div>{{item_1.arr_time}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

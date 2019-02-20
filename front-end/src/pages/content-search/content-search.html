@@ -1,0 +1,149 @@
+<!--
+  Generated template for the ContentSearch page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-item style="background-color: inherit; padding-left: inherit;">
+      <ion-input [(ngModel)]="search" placeholder="검색할 내용을 입력해주세요."></ion-input>
+    </ion-item>
+
+    <ion-buttons right (click)="content_search()">
+      <button ion-button icon-only color="dark">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <div *ngIf="key == null" style="background-color: white; ">
+    <h2 style="margin-top: 0px; padding-top: 10px; text-align: center;">검색 기록</h2>
+    <ion-list>
+      <ion-item *ngFor="let history of history_keyword; let i = index;">
+        <ion-label color="dark" style="font-size: 1.3rem;" (click)="history_search(history.keyword)">{{history.keyword}}</ion-label>
+
+        <ion-badge item-right color="transparent" style="margin: 0; padding: 0;">
+          <button ion-button clear (click)="history_delete(i)">
+            <ion-icon color="dark" ios="ios-close-outline" md="ios-close-outline" wp="ios-close-outline"></ion-icon>
+          </button>
+        </ion-badge>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--content 전체의 padding을 위한 div-->
+  <div *ngIf="key != null && searchResult != null" style="padding: 8px 8px 0 8px;">
+
+    <ion-card color="customBtn1">
+      <ion-label style="margin: 5px 10px; font-size: 1.2rem; font-weight: bold;">장소 검색 결과 {{searchResult.facilityBoard.length}}건 검색</ion-label>
+    </ion-card>
+
+    <ion-card>
+      <ion-list *ngFor="let facility of searchResult.facilityBoard">
+        <ion-item class="facility" (click)="navigate_facility_detail(facility)">
+          <ion-badge item-left color="customBtn8" class="post_type">장소</ion-badge>
+
+          <ion-label style="font-weight: bold; font-size: 1.5rem;">{{facility.name}}</ion-label>
+
+          <ion-badge item-right color="transparent" style="margin: 0; padding: 0;">
+            <button ion-button icon-only clear color="transparent">
+              <ion-icon ios="ios-arrow-forward" md="ios-arrow-forward" wp="ios-arrow-forward" color="darkLight2"></ion-icon>
+            </button>
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-card>
+      <ion-item class="filter">
+        <ion-label style="font-size: 1.5rem; font-weight: bold;">게시글 글 필터</ion-label>
+        <ion-badge item-right style="margin: 0; background-color: white;">
+          <button ion-button round color="customBtn" (click)="adapt()" style="height: 25px; padding: 0 10px; font-size: 1.2rem; font-weight: bold;">적용</button>
+        </ion-badge>
+      </ion-item>
+
+      <ion-buttons class="category_btns">
+        <!--스크롤 생성을 위한 div-->
+        <div style="overflow: auto; white-space: nowrap;">
+          <button *ngFor="let categoryBtn of categoryBtns" ion-button round [color]="categoryBtn.selected? categoryBtn.color: 'darkLight'" (click)="categorySelect(categoryBtn)" class="category_btn">{{categoryBtn.name}}</button>
+        </div>
+      </ion-buttons>
+    </ion-card>
+
+    <ion-card color="customBtn1">
+      <ion-label style="margin: 5px 10px; font-size: 1.2rem; font-weight: bold;">게시글 검색 결과 {{searchResult.userBoard.length}}건 검색</ion-label>
+    </ion-card>
+
+    <ion-list style="margin-bottom: 0px;">
+      <ion-card *ngFor="let item of searchResult.userBoard">
+
+        <ion-item>
+          <ion-avatar item-left (click)="userinfo(item.user_no)" class="profile_img">
+            <img [src]="item.profileSrc">
+          </ion-avatar>
+
+          <h2 style="font-size: 1.2rem; font-weight: bold;" (click)="userinfo(item.user_no)">{{item.userName}}</h2>
+          <p style="color: #696969; font-size: 1rem;">{{getTimeText(item.registTime)}}</p>
+
+          <ion-badge item-right [color]="item.category == '공지'? 'customBtn2': (item.category == '이벤트'? 'customBtn3': '')" class="post_type">{{item.category}}</ion-badge>
+        </ion-item>
+
+        <div *ngIf="item.resourceSrc[0][0] != null" (click)="navigate_detail(item)" class="contentImg">
+          <img [src]="item.resourceSrc[0][0]" />
+          <div *ngIf="item.resourceSrc[0].length > 1" class="black_cover "><div class="centered">+ {{item.resourceSrc[0].length - 1}}</div></div>
+        </div>
+
+        <ion-label (click)="navigate_detail(item)" style="margin: 12px; font-size: 2.5rem; font-weight: bold;">
+          {{item.title}}
+        </ion-label>
+
+        <ion-row>
+
+          <ion-col>
+            <button ion-button color="dark" read-only clear icon-left>
+              <ion-icon ios="md-eye" md="md-eye" wp="md-eye"  (click)="alert('gg')"></ion-icon>
+              {{item.count}}
+            </button>
+          </ion-col>
+
+          <ion-col>
+            <button ion-button clear (click)="like(item)">
+              <ion-icon item-left ios="md-thumbs-up" md="md-thumbs-up" wp="md-thumbs-up" [color]="item.yours? 'customBtn1': 'dark'"></ion-icon>
+              <span style="margin-left: 5px; color: #222;">{{item.like}}</span>
+            </button>
+          </ion-col>
+
+          <ion-col>
+            <button ion-button color="dark" clear icon-left (click)="reply(item)">
+              <ion-icon ios="ios-text-outline" md="ios-text-outline" wp="ios-text-outline"></ion-icon>
+              {{item.comment}}
+            </button>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-card>
+    </ion-list>
+  </div>
+
+
+
+
+  <div style="display: none;">
+
+
+
+
+
+
+  </div>
+
+
+</ion-content>

@@ -1,0 +1,53 @@
+<!--
+  Generated template for the UserEmail page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+2017.05.09 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.11]
+      1. 이메일 입력란에 clearInput 속성 추가
+      2. 인증번호 입력란에 clearInput 속성 추가
+      3. 이메일 주소 입력과, 인증번호 입력 부분의 #변수명 대신에 [(ngModel)] 로 변환
+    [2017.05.22]
+      1. 인증번호 입력시 '다음' 버튼을 활성화 되도록 하기위한 input 이벤트를 추가
+      2. 인증번호 입력에 clearInput 속성으로 인해 내용이 지워졌을경우를 위해 blur 이벤트를 추가
+-->
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>본인 인증</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <div class="email_area">
+
+    <ion-card>
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">이메일 주소</ion-label>
+        <ion-input type="email" placeholder="본인 인증할 메일 주소" clearInput [(ngModel)]="emailAddr" style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="flag_ca">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">인증번호 입력</ion-label>
+        <ion-badge item-right color="light" id="remainCount" style="color: red;"></ion-badge>
+        <ion-input type="text" placeholder="인증번호 입력" maxLength="3" clearInput [(ngModel)]="certNumber" (input)="certInput()" (blur)="certInput()" style="font-size: 1.3rem;"></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <button ion-button full round [disabled]="flag_sn" color="customBtn1" (click)="sendNumber()">인증번호 보내기</button>
+    <button ion-button full round [disabled]="flag_np" color="customBtn1" (click)="nextPage()">다음</button>
+
+  </div>
+
+</ion-content>

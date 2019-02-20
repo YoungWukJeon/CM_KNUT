@@ -1,0 +1,104 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+$font-path: "../assets/fonts";
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,  
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+
+  // custom button colors
+
+  customBtn1: rgb(68, 114, 196), // 2017.05.07 added by Youngwuk Jeon...in 'page/login'
+  darkLight: rgb(169, 169, 169), // 2017.05.12 added by Youngwuk Jeon...in 'page/content-write'
+  customBtn2: rgb(248, 203, 173),  // 2017.05.14 added by Youngwuk Jeon...in 'page/content-write'
+  customBtn3: rgb(180, 199, 231),  // 2017.05.14 added by Youngwuk Jeon...in 'page/content-write'
+
+  customBtn4: rgb(103, 203, 173),  // 2017.05.14 added by Youngwuk Jeon...in 'page/content-write'...test
+  customBtn5: rgb(155, 227, 36),  // 2017.05.14 added by Youngwuk Jeon...in 'page/content-write'...test
+  customBtn6: rgb(111, 111, 222),  // 2017.05.14 added by Youngwuk Jeon...in 'page/content-write'...test
+  customBtn7: rgb(180, 90, 180),  // 2017.05.14 added by Youngwuk Jeon...in 'page/content-write'...test
+  darkLight2: rgb(99, 99, 99),  // 2017.05.15 added by Youngwuk Jeon...in 'page/content-write'
+
+  transparent: rgba(0, 0, 0, 0),  // 2017.05.15 added by Youngwuk Jeon...in 'page/content-write-sub'
+
+  customBtn8: rgb(146, 208, 80) // 2017.05.19 added by Youngwuk Jeon...in 'page/content-detail-facility'
+);
+
+// 2017.05.07 added by Youngwuk Jeon...in 'page/login'
+
+$button-round-border-radius: 8px;
+$img-placeholder-background: rgba(0, 0, 0, 0);  // 투명하게 설정
+
+
+
+//////////////////////////////////////////////////////
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

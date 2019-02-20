@@ -1,0 +1,79 @@
+<!--
+  Generated template for the ContentDetailSubContent page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+2017.06.08 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.06.13]
+      1. 투표에 관한 마감일, 마감인원 등 정보 출력
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>{{item.type=='vote'? '투표': '설문 조사'}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+  <ion-card>
+    <hr>
+    <ion-label style="padding: 0 20px; font-size: 2rem; font-weight: bold; white-space: pre-wrap;"><span *ngIf="item.expired == 1" class="expired">마감</span> {{item.title}}</ion-label>
+    <hr>
+    <ion-label style="margin: 5px 0; padding: 0 20px; font-size: 1.2rem; text-align: right;">{{"현재 참여자 수 : " + item.count + "명"}}</ion-label>        
+    <ion-label *ngIf="item.method == 'people'" style="margin: 5px 0; padding: 0 20px; font-size: 1.2rem; text-align: right;">{{"최대 참여자 수 : " + item.peopleCount + "명"}}</ion-label>        
+    <ion-label *ngIf="item.method == 'time'" style="margin: 5px 0; padding: 0 20px; font-size: 1.2rem; text-align: right;">{{"기간 : " + getTimeText(item.start_time) + "~" + getTimeText(item.end_time)}}</ion-label> 
+    
+    <!--투표를 할 경우-->
+    <ion-list *ngIf="item.type == 'vote'" radio-group [(ngModel)]="vote_result">
+      <hr>
+      <ion-item *ngFor="let it of item.content">
+        <ion-label stacked style="margin-bottom: 5px; font-weight: bold; font-size: 1.7rem; white-space: pre-wrap;">{{it.no + "번. " + it.content}}</ion-label>
+        <ion-radio [value]="it.no"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <!--설문 조사를 할 경우-->
+    <ion-list *ngIf="item.type == 'survey'">
+      <div *ngFor="let it of item.content" style="padding-left: 16px;">
+        <hr>
+        <ion-label stacked style="margin-bottom: 5px; font-weight: bold; font-size: 1.7rem; white-space: pre-wrap;">{{it.no + "번. " + it.title}} <span *ngIf="it.necessity" style="font-weight: bold; font-size: 1rem; color: red">(필수)</span></ion-label>
+        <ion-list *ngIf="it.type != 'sc'" radio-group [(ngModel)]="it.answer">
+          <ion-item *ngFor="let content of it.content">
+            <!--mc..객관식의 경우-->
+            <ion-label *ngIf="it.type == 'mc'" [color]="content.checked? 'primary': 'dark'" (click)="change(content)" style="font-weight: bold; font-size: 1.4rem; white-space: pre-wrap;">{{content.no + ") " + content.content}}</ion-label>
+            <!--cb..체크박스의 경우-->
+            <ion-checkbox *ngIf="it.type == 'cb'" style="margin: 0px;" (click)="change(content)"></ion-checkbox>
+            <ion-label *ngIf="it.type == 'cb'" style="margin-left: 20px; font-weight: bold; font-size: 1.4rem; white-space: pre-wrap;">{{content.content}}</ion-label>
+            <!--rb..라디오버튼의 경우-->
+            <ion-radio *ngIf="it.type == 'rb'" [value]="content.no"></ion-radio>
+            <ion-label *ngIf="it.type == 'rb'" style="margin-left: 20px; font-weight: bold; font-size: 1.4rem; white-space: pre-wrap;">{{content.content}}</ion-label> 
+          </ion-item>
+        </ion-list>
+        <!--sc..주관식의 경우-->
+        <div *ngIf="it.type == 'sc'">
+          <ion-input [(ngModel)]="it.answer" type="text" placeholder="답항해주세요.~" style="font-weight: bold; font-size: 1.4rem; color: #488aff"></ion-input>
+        </div>
+      </div>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <hr>
+    <ion-item style="text-align-last: right;">
+      <button ion-button clear color="darkLight2" (click)="cancel()" style="font-weight: bold; margin-right: 10px;">취소</button>
+      <button [disabled]="!canPost(true)" ion-button clear color="darkLight2" (click)="post()" style="font-weight: bold;">등록</button>
+    </ion-item> 
+  </ion-card>
+
+</ion-content>

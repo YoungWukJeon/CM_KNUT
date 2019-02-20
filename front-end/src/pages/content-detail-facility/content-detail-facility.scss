@@ -1,0 +1,130 @@
+page-content-detail-facility {
+
+  // .title_area .item-inner {
+  //   height: 50px;
+  // }
+
+  .card-ios, .card-md, .card-wp {
+    width: 100%;
+    height: auto;
+    margin: 0 0 10px 0;
+  }
+
+  .post_type {
+    display: inline-block;
+    margin: 5px;
+    padding-top: 5px;
+    font-size: 1.5rem;
+    color: black;
+    vertical-align: 50%;
+  }
+
+  .content_header {
+    margin: 10px 0px;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .content_area {
+    margin-left: 16px;    
+  }
+
+  .resource {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background-color: black;
+  }
+
+  .resource img {
+    position: absolute;
+    top: 50%;
+    max-width: 100%;
+    max-height: 170px;
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .img_changer {
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .img_counter {
+    position: absolute;
+    bottom: 0; 
+    width: 100%; 
+    height: 20px;
+    padding-right: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .map_wrapper .item-inner {
+    height: 30px;
+  }
+
+  .issue {
+    border-top: solid 0.5px #696969;
+    border-bottom: solid 0.5px #696969;
+  }
+
+  .issue .item-inner {
+    height: 30px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+  // .img-div {
+  //   width: 100%;
+  //   height: 170px;
+  //   line-height: 170px;
+  // }
+
+  // .title-p {
+  //   display: inline-block;
+  //   margin-left: 10px;
+  //   margin-top: 5px;
+  //   margin-bottom: 5px;
+  //   font-size: large;
+  //   font-weight: bolder;
+  // }
+
+  // .subtitle-p {
+  //   display: inline-block;
+  //   margin-left: 15px;
+  //   margin-top: 0px;
+  //   margin-bottom: 3px;
+  //   font-size: medium;
+  //   font-weight: bolder;
+  //   color: rgb(68, 114, 196);
+  // }
+
+  // .map-div-small {
+  //   position: relative;
+  //   width: 100%;
+  //   height: 50%;
+  //   left: 0;
+  //   top: 0;
+  //   background: #ffffff; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  // }
+
+  .map-small {
+    width: 100%;
+    height: 88%;
+  }
+
+}

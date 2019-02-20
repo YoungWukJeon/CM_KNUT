@@ -1,0 +1,46 @@
+<!--
+  Generated template for the ContentLike page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<!--
+  2017.05.17 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.14]
+      
+
+-->
+
+
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title >공감한 사람</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <ion-list item-left no-lines>
+    <ion-item *ngFor="let item of items" (click)="userinfo(item.user_no)">
+      <ion-avatar item-left class="profile_img">
+        <img [src]="item.profile">
+      </ion-avatar>
+      <h2 style="font-size: 1.5rem; font-weight: bold;">{{item.username}}</h2>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

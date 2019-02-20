@@ -1,0 +1,164 @@
+<!--
+  Generated template for the ContentWriteSub page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+  2017.05.15 made by Youngwuk Jeon
+
+  <Update Log>
+    
+
+
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss(false)" color="customBtn1" style="font-weight: bold; font-size: 1.2rem">취소하기</button>
+    </ion-buttons>
+
+    <ion-title>{{type=='vote'? '투표': '설문 조사'}} 추가</ion-title>
+
+    <ion-buttons right>
+      <button ion-button (click)="dismiss(true)" color="customBtn1" style="font-weight: bold; font-size: 1.2rem">추가하기</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <!--제목-->
+  <ion-card>
+    <ion-item>
+      <ion-label stacked color="customBtn1" style="font-weight: bold;">제목 ({{title.length}} / 30)</ion-label>
+      <ion-input type="text" placeholder="{{type=='vote'? '투표': '설문 조사'}} 제목을 적어주세요." clearInput maxlength="30" [(ngModel)]="title" style="font-size: 1.3rem;"></ion-input>
+    </ion-item>
+  </ion-card>
+
+  <!--투표의 경우-->
+  <ion-card *ngIf="type=='vote'">
+    <ion-label color="customBtn1" style="margin: 5px 16px; font-weight: bold; font-size: 1.2rem;">항목 ({{contents.length}} / {{voteMaxCount}})</ion-label>
+    <ion-list>
+      <ion-item *ngFor="let content of contents">
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">{{content.no}}번 <span style="color: #696969; font-size: 1rem;">({{content.content.length}} / 100)</span></ion-label>
+        <ion-input type="text" placeholder="해당 항목의 내용을 적어주세요." clearInput maxlength="100" [(ngModel)]="content.content" style="font-size: 1.3rem;"></ion-input>
+        <ion-badge color="transparent" item-right (click)="removeItem(content)">
+          <ion-icon ios="md-close" md="md-close" wp="md-close" color="customBtn1"></ion-icon>
+        </ion-badge>
+      </ion-item>
+
+      <hr>
+     
+    </ion-list>
+
+    <!--항목 추가 버튼-->
+    <ion-buttons *ngIf="contents.length < voteMaxCount" style="text-align-last: center;">
+      <button ion-button icon-left clear (click)="addItem()" style="font-size: 1.2rem; font-weight: bold;">
+        <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn1"></ion-icon>
+        항목 추가
+      </button>
+    </ion-buttons>
+  </ion-card>
+
+
+  <!--설문 조사의 경우-->
+  <ion-card *ngIf="type=='survey'">
+    <ion-label color="customBtn1" style="margin: 5px 16px; font-weight: bold; font-size: 1.2rem;">항목 ({{contents.length}} / {{surveyMaxCount}})</ion-label>
+    <ion-list>
+
+      <hr>
+
+      <ion-item-group *ngFor="let content of contents">
+        <ion-item (press)="changeNecessity(content)">
+          <ion-label stacked [color]="content.necessity? 'danger': 'customBtn1'" style="font-weight: bold;">{{content.no}}번 ({{content.typename}}) <span *ngIf="content.type != 'sc'" style="color: #696969; font-size: 1rem;">({{content.content.length}} / {{content.maxSubCount}})</span></ion-label>
+          <ion-input type="text" placeholder="설문의 내용을 적어주세요." clearInput maxlength="100" [(ngModel)]="content.title" style="font-size: 1.3rem;"></ion-input>
+          <ion-badge color="transparent" item-right (click)="removeItem(content)">
+            <ion-icon ios="md-close" md="md-close" wp="md-close" color="customBtn1"></ion-icon>
+          </ion-badge>
+        </ion-item>
+
+        <hr>
+
+        <ion-item *ngFor="let subContent of content.content">
+          <ion-label stacked color="darkLight2" style="font-size: 1rem; font-weight: bold;">{{subContent.no}}번 <span style="color: #696969; font-size: 1rem;">({{subContent.content.length}} / 100)</span></ion-label>
+          <ion-input type="text" placeholder="설문 항목을 적어주세요." clearInput maxlength="100" [(ngModel)]="subContent.content" style="font-size: 1.1rem;"></ion-input>
+          <ion-badge color="transparent" item-right (click)="removeSubItem(content, subContent)">
+            <ion-icon ios="md-close" md="md-close" wp="md-close" color="customBtn1"></ion-icon>
+          </ion-badge>
+        </ion-item>
+
+        <!--서브 항목 추가 버튼-->
+        <ion-buttons *ngIf="content.content.length < content.maxSubCount" style="text-align-last: center;">
+          <button ion-button clear icon-left (click)="addSubItem(content)" style="font-size: 1.0rem; font-weight: bold;">
+            <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn5"></ion-icon>
+            문항 추가
+          </button>
+        </ion-buttons>
+      </ion-item-group>
+    </ion-list>
+
+    <!--항목 추가 버튼-->
+    <ion-buttons *ngIf="contents.length < surveyMaxCount" style="text-align-last: center;">
+      <button ion-button clear icon-left (click)="addItem('mc')" style="font-size: 1.2rem; font-weight: bold;">
+        <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn1"></ion-icon>
+        객관식
+      </button>
+
+      <button ion-button clear icon-left (click)="addItem('sc')" style="font-size: 1.2rem; font-weight: bold;">
+        <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn2"></ion-icon>
+        주관식
+      </button>
+
+      <button ion-button clear icon-left (click)="addItem('rb')" style="font-size: 1.2rem; font-weight: bold;">
+        <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn3"></ion-icon>
+        택1
+      </button>
+
+      <button ion-button clear icon-left (click)="addItem('cb')" style="font-size: 1.2rem; font-weight: bold;">
+        <ion-icon ios="md-add-circle" md="md-add-circle" wp="md-add-circle" color="customBtn4"></ion-icon>
+        다중
+      </button>
+    </ion-buttons>
+  </ion-card>
+
+  <!--만료 방법 설정-->
+  <ion-card>
+    <ion-label color="customBtn1" style="margin: 5px 16px; font-weight: bold; font-size: 1.2rem;">종료 방법 선택</ion-label>
+
+    <ion-segment [(ngModel)]="method" color="customBtn1">
+      <ion-segment-button value="time">
+        <ion-icon ios="ios-time-outline" md="ios-time-outline" wp="ios-time-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="people">
+        <ion-icon ios="md-people" md="md-people" wp="md-people"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!--시간을 통한 종료-->
+    <ion-list *ngIf="method=='time'">
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="margin-top: 5px; font-weight: bold;">시작일 등록</ion-label>
+        <ion-datetime displayFormat="YYYY.MM.DD HH:mm" color="darkLight" pickerFormat="YYYY.MM.DD HH:mm" cancelText="취소" doneText="확인" placeholder="OOOO.OO.OO OO:OO" [(ngModel)]="startDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked color="customBtn1" style="margin-top: 5px; font-weight: bold;">종료일 등록</ion-label>
+        <ion-datetime displayFormat="YYYY.MM.DD HH:mm" color="darkLight" pickerFormat="YYYY.MM.DD HH:mm" cancelText="취소" doneText="확인" placeholder="OOOO.OO.OO OO:OO" [(ngModel)]="endDate"></ion-datetime>
+      </ion-item>
+    </ion-list>
+
+    <!--인원수를 통한 종료-->
+    <ion-item *ngIf="method=='people'">
+      <ion-label stacked color="customBtn1" style="margin-top: 5px; font-weight: bold;">참여가능 인원</ion-label>
+      <ion-range [(ngModel)]="peopleCount" min="10" max="1000" color="customBtn1">
+        <ion-label range-left>10</ion-label>
+        <ion-label range-right>1000</ion-label>
+      </ion-range>
+      <ion-badge item-right color="customBtn1" (click)="changePeopleCount()" style="margin-left: 20px;">{{peopleCount}}명</ion-badge>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

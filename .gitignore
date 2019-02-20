@@ -1,0 +1,17 @@
+back-end/node_modules/
+back-end/res/images/background/
+back-end/res/images/facilityboard/
+back-end/res/images/profile/
+back-end/res/images/userboard/
+back-end/routes/._index.js
+back-end/._app.js
+back-end/cm_knut_server.zip
+
+front-end/node_modules/
+front-end/.vscode
+front-end/platforms/
+front-end/plugins/
+front-end/src/assets/btn_icon/
+front-end/src/assets/image/
+front-end/src/assets/logo/
+front-end/www/

@@ -1,0 +1,74 @@
+<!--
+  Generated template for the ContentReplyReply page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+  2017.05.17 made by Youngwuk Jeon
+
+  <Update Log>
+      
+
+-->
+
+
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()" color="darkLight2">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>답글</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <ion-list no-lines style="margin-bottom: 0px;">
+    <div *ngFor="let item of items" style="background-color: white;">
+      <ion-item>
+        <ion-avatar item-left (click)="userinfo(item.user_no)" class="profile_img">
+          <img [src]="item.profile">
+        </ion-avatar>
+
+        <h2 style="font-size: 1.2rem; font-weight: bold;" (click)="userinfo(item.user_no)">{{item.username}}</h2>
+        <p style="color: #696969; font-size: 1rem;">{{getTimeText(item.time)}}</p>
+      </ion-item>
+
+      <div class="reply_content">{{item.content}}</div>
+
+      <ion-buttons>
+        <button clear ion-button (click)="like(item)" class="like_btn">
+          공감&nbsp;&nbsp;
+          <ion-icon [color]="item.yours? 'customBtn1': 'dark'" ios="md-thumbs-up" md="md-thumbs-up" wp="md-thumbs-up"></ion-icon>
+          &nbsp;&nbsp;&nbsp; {{item.totalLikeCount}}
+        </button>
+
+        <button *ngIf="user_no == item.user_no" clear ion-button (click)="update(item)" class="like_btn">수정</button>
+        <button *ngIf="user_no == item.user_no" clear ion-button (click)="delete(item)" class="like_btn">삭제</button>
+      </ion-buttons>
+
+      <hr>
+    </div>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer style="height: auto;">
+  <ion-item>
+    <ion-textarea clearInput rows="1" placeholder="답글을 입력하세요." [(ngModel)]="replyContent"></ion-textarea>
+
+    <!--ion-badge에 class 형태로 스타일을 적용하니 적용이 되지않음...링크된 scss파일의 우선순위가 낮은것으로 보임-->
+    <ion-badge item-right style="margin: 0; padding: 0; background-color: white; align-self: center;">
+      <button ion-button color="customBtn1" (click)="post()" class="reply_btn">게시</button>
+    </ion-badge>
+  </ion-item>
+</ion-footer>

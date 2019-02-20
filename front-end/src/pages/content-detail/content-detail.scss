@@ -1,0 +1,131 @@
+page-content-detail {
+
+
+  //.map-div-large {
+  //  position: absolute;
+  //  width: 100%;
+  //  height: 100%;
+  //  left: 0;ion
+  //  top: 0;
+  //}
+
+  .card-ios, .card-md, .card-wp {
+    width: 100%;
+    height: auto;
+    margin: 0 0 0 0;
+  }
+
+  .map_wrapper .item-inner {
+    height: 30px;
+  }
+
+  .profile_img {
+      border: solid 1px #696969; 
+      border-radius: 50%;
+  }
+
+  .expire_time {
+    margin: 5px 8px; 
+    font-size: 1.2rem; 
+    font-weight: bold; 
+    text-align: right;
+  }
+
+  .resource {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background-color: black;
+  }
+
+  .resource img {
+    position: absolute;
+    top: 50%;
+    max-width: 100%;
+    max-height: 170px;
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .img_changer {
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .img_counter {
+    position: absolute;
+    bottom: 0; 
+    width: 100%; 
+    height: 20px;
+    padding-right: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+
+  .sub_btn {
+        margin: 10px 5px; 
+        font-size: 1.2rem; 
+        font-weight: bold;
+    }
+
+
+
+
+  // .img-div {
+  //   width: 100%;
+  //   height: 170px;
+  //   line-height: 170px;
+  // }
+
+  .post_type {
+    display: inline-block;
+    margin: 5px;
+    padding-top: 5px;
+    font-size: 1.5rem;
+    color: black;
+    vertical-align: 50%;
+  }
+
+  // .map-div-small {
+  //   position: relative;
+  //   width: 100%;
+  //   height: 50%;
+  //   left: 0;
+  //   top: 0;
+  //   background: #ffffff; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  // }
+
+  //.map-large {
+  //  position: absolute;
+  //  display: block;
+  //  width: 100%;
+  //  height: 100%;
+  //}
+
+  .map-small {
+    display: block;
+    height: 88%;
+  }
+
+  // .card-div {
+  //   position: relative;
+  //   width: 100%;
+  //   //background: #ffffff; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  // }
+
+  // .comment-div {
+  //   position: relative;
+  //   width: 100%;
+  //   margin-top: 12px;
+  //   margin-bottom: 55px;
+  //   background: #ffffff; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  // }
+
+
+}

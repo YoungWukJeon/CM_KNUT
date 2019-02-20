@@ -1,0 +1,128 @@
+<!--
+  Generated template for the ContentDetail page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>CM KNUT</ion-title>
+  </ion-navbar>
+
+  <ion-card style="height: 50px; margin-bottom: 0px;">
+    <ion-item style="height: inherit;">
+      <ion-badge item-left [color]="item.category == '공지'? 'customBtn2': (item.category == '이벤트'? 'customBtn3': '')" class="post_type">{{item.category}}</ion-badge>
+      <ion-label style="font-weight: bold; font-size: 1.5rem;">{{item.title}}</ion-label>
+
+      <ion-badge item-right style="background-color: white;">
+        <ion-buttons>
+          <button *ngIf="user_no == item.user_no" ion-button clear (click)="update()" style="font-size: 1.2rem; color: #696969;">수정</button>
+          <button *ngIf="user_no == item.user_no" ion-button clear (click)="presentConfirm()" style="font-size: 1.2rem; color: #696969;">삭제</button>
+        </ion-buttons>
+      </ion-badge>
+    </ion-item>
+  </ion-card>
+</ion-header>
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+  <ion-card style="height: 50%; margin-top: 5px;">
+    <ion-item class="map_wrapper">
+      <ion-label style="font-size: 1.5rem; font-weight: bold; ">위치</ion-label>
+      <ion-badge item-right style="background-color: white;" >
+        <button ion-button clear color="CustomBtn" (click)="showBigMap()" style="font-size: 1.2rem; font-weight: bold;">크게 보기 ></button>
+      </ion-badge>
+    </ion-item>
+
+    <adm-map class="map-small" [latitude]="36.9692523" [longitude]="127.8700678" level="5">
+      <adm-marker *ngFor="let marker of item.markers" [latitude]="marker.lat" [longitude]="marker.lng" [image]="item.icon"></adm-marker>
+    </adm-map>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-left (click)="userInfo(item.user_no)" class="profile_img">
+        <img [src]="item.profileSrc" />
+      </ion-avatar>
+
+      <h2 (click)="userInfo(item.user_no)" style="font-size: 1.2rem; font-weight: bold;">{{item.userName}}</h2>
+      <p style="color: #696969; font-size: 1rem;">{{getTimeText(item.registTime, "regist")}}</p>
+
+      <ion-badge item-right style="background-color: white; color: #222;">
+        <ion-icon item-left ios="md-eye" md="md-eye" wp="md-eye" color="dark"></ion-icon>{{item.count}}
+      </ion-badge>
+    </ion-item>
+
+    <ion-label *ngIf="item.category == '이벤트'" color="danger" class="expire_time">게시만료 - {{getTimeText(item.expireTime, "expire")}}</ion-label>
+
+    <ion-card-content style="padding: 5px 15px;">
+      <p>{{item.content}}</p>
+    </ion-card-content>
+
+    <ion-label color="customBtn1" style="margin: 5px 12px; font-size: 1.2rem; font-weight: bold;">{{item.tag}}</ion-label>
+
+    <div *ngIf="item.resourceSrc[0].length > 0" class="resource">
+      <img [src]="item.resourceSrc[0][currentResIndex]" />
+
+      <!--.resource 영역 내의 모든 컴포넌트들이 absolute의 위치를 가지므로 img보다 앞에 생성되면 이벤트가 안먹음-->
+      <div *ngIf="(0 < currentResIndex)" (click)="imageChange(false)" class="img_changer" style="left: 20px;">
+        <ion-icon ios="ios-arrow-back" md="ios-arrow-back" wp="ios-arrow-back" color="light"></ion-icon>
+      </div>
+
+      <div *ngIf="(item.resourceSrc[0].length > currentResIndex + 1)" (click)="imageChange(true)" class="img_changer" style="right: 20px;">
+        <ion-icon ios="ios-arrow-forward" md="ios-arrow-forward" wp="ios-arrow-forward" color="light"></ion-icon>
+      </div>
+
+      <div class="img_counter">{{currentResIndex + 1}} / {{item.resourceSrc[0].length}}</div>
+    </div>
+
+    <ion-buttons>
+      <button ion-button clear (click)="like()">
+        <ion-icon item-left ios="md-thumbs-up" md="md-thumbs-up" wp="md-thumbs-up" [color]="item.yours? 'customBtn1': 'dark'"></ion-icon>
+        <span style="margin-left: 5px; color: #222;">{{item.like}}</span>
+      </button>
+
+      <button ion-button clear (click)="reply()">
+        <ion-icon item-left ios="ios-text-outline" md="ios-text-outline" wp="ios-text-outline" color="dark"></ion-icon>
+        <span style="margin-left: 5px; color: #222;">{{item.comment}}</span>
+      </button>
+    </ion-buttons>
+  </ion-card>
+
+  <ion-card *ngIf="item.sub_content != null">
+    <button ion-button color="customBtn1" (click)="goSubContent()" class="sub_btn" style="margin-left: 20px;">{{item.sub_content=='vote'? '투표 참여하기': '설문 조사 참여하기'}}</button>
+    <button *ngIf="user_no == item.user_no" ion-button color="customBtn1" (click)="goSubContentResult()" class="sub_btn" style="margin-left: 20px;">결과보기</button>
+    <button *ngIf="user_no == item.user_no" ion-button color="customBtn1" (click)="endSubContent()" class="sub_btn" style="margin-left: 20px;">끝내기</button>    
+  </ion-card>
+
+  <ion-card style="margin-bottom: 5px;">
+    <ion-item class="map_wrapper">
+      <ion-label style="font-size: 1.5rem; font-weight: bold; ">댓글</ion-label>
+      <ion-badge item-right style="background-color: white;">
+        <button ion-button clear color="CustomBtn" (click)="reply()" style="font-size: 1.2rem; font-weight: bold;">더 보기 ></button>
+      </ion-badge>
+    </ion-item>
+
+    <ion-item *ngIf="item.reply != null" (click)="reply()">
+      <ion-avatar item-left class="profile_img">
+        <img [src]="item.reply.profile">
+      </ion-avatar>
+
+      <h2 style="font-size: 1rem; font-weight: bold;">{{item.reply.username}}</h2>
+      <p style="color: #696969; font-size: 1rem;">{{item.reply.content}}</p>
+    </ion-item>
+  </ion-card>
+</ion-content>
+
+<!--<ion-footer style="height: auto; text-align-last:center; background-color: white;">
+  <ion-buttons>
+    <button ion-button clear (click)="like()" style="width: 50%; font-size: 1.8rem;">
+      <ion-icon item-left ios="md-thumbs-up" md="md-thumbs-up" wp="md-thumbs-up" [color]="item.yours? 'customBtn1': 'dark'"></ion-icon>
+      <span style="margin-left: 5px; font-size: 1.8rem; font-weight: bold; color: #222;">공감</span>
+    </button>
+
+    <button ion-button clear (click)="reply()" style="width: 45%; font-size: 1.8rem;">
+      <ion-icon item-left ios="ios-text-outline" md="ios-text-outline" wp="ios-text-outline" color="dark"></ion-icon>
+      <span style="margin-left: 5px; font-weight: bold; color: #222;">댓글 달기</span>
+    </button>
+  </ion-buttons>
+</ion-footer>-->

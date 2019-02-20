@@ -1,0 +1,177 @@
+<!--
+  Generated template for the ContentWrite page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+  2017.05.12 made by Youngwuk Jeon
+
+  <Update Log>
+    [2017.05.14]
+      1. <adm-map> 태그에 *ngIf 추가
+        - 지도가 초기화될 당시에 영역이 잡혀있지 않으면 지도가 짤려서 나오는 현상이 발생.
+          이를 해결하기 위해 지도가 로딩된 적이 있는지를 나타내는 변수를 추가(최초에 showMap을 하면 지도가 로드됨)
+    [2017.06.04]
+      1. 추가 기능 부분 관련 UI 변경
+
+-->
+
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>글쓰기</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-color: rgb(231, 230, 230);">
+
+  <ion-card>
+    <ion-item>
+      <ion-label stacked color="customBtn1" style="font-weight: bold;">위치등록</ion-label>
+
+      <ion-label style="margin-top: 5px; margin-bottom: 10px; font-weight: bold; font-size: 1.8rem; color: black; height: 30px;">
+        {{markerContent}}
+      </ion-label>
+      
+      <ion-label style="height: auto; margin-top: 5px; margin-bottom: 5px; font-weight: bold; font-size: 1.2rem; color: gray;">
+        현재 마커의 수 ({{getMarkerCount()}} / {{maxMarkerCount}})
+      </ion-label>
+      
+      <!--지도가 닫혀있을 경우-->
+      <ion-badge *ngIf="!flag_sm" item-right color="customBtn1" (click)="showMap()" class="marker_badge">
+        <img src="assets/btn_icon/icon_map.png" style="width: 24px; height: 20px; margin-top: 5px; margin-left: 3px;"/>
+      </ion-badge>
+
+      <!--지도가 열려있을 경우-->
+      <ion-badge *ngIf="flag_sm" item-right color="customBtn1" (click)="showMap()" class="marker_badge">
+        <img src="assets/btn_icon/icon_check.png" style="width: 20px; height: 14px; margin-top: 8px; margin-left: 5px;"/>
+      </ion-badge>
+
+      <!--마커 핀이 활성화된 경우-->
+      <ion-badge *ngIf="flag_sm && flag_ap" item-right color="customBtn1" (click)="activePin()" class="marker_badge">
+        <img src="assets/btn_icon/icon_pin.png" style="width: 24px; height: 20px; margin-top: 5px; margin-left: 3px;"/>
+      </ion-badge>
+
+      <!--마커 핀이 비활성화된 경우-->
+      <ion-badge *ngIf="flag_sm && !flag_ap" item-right color="darkLight" (click)="activePin()" class="marker_badge">
+        <img src="assets/btn_icon/icon_pin.png" style="width: 24px; height: 20px; margin-top: 5px; margin-left: 3px;"/>
+      </ion-badge>
+    </ion-item>
+
+    <!--*ngIf로 지도 보이는 여부를 처리할 경우 지도 on/off 과정에서 지도가 계속 reloading 되서 동적 마커 핀이 모두 사라짐-->
+    <!--*ngIf 추가...2017.05.14 update-1 참조-->
+    <div *ngIf="flag_mi" [hidden]="!flag_sm" style="width: 100%; height: 300px; margin-bottom: 10px;">
+      <adm-map #map [latitude]="36.9692523" [longitude]="127.8700678" level="5" style="height: 300px" (click)="addMarker($event)">
+        <adm-marker *ngFor="let marker of markers" [visible]="marker.visibility" [latitude]="marker.lat" [longitude]="marker.lng" [image]="marker.image" (markerClick)="marker.visibility=false"></adm-marker>
+      </adm-map>
+    </div>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label stacked color="customBtn1" style="font-weight: bold;">제목 ({{title.length}} / 30)</ion-label>
+      <ion-input type="text" placeholder="작성 글 제목을 입력해 주세요." clearInput maxlength="30" [(ngModel)]="title" style="font-size: 1.3rem;"></ion-input>
+    </ion-item>
+
+    <ion-label color="customBtn1" style="margin: 5px 16px; font-weight: bold; font-size: 1.2rem;">분류</ion-label>
+    <ion-buttons class="category_btns">
+      <!--스크롤 생성을 위한 div-->
+      <div style="overflow: auto; white-space: nowrap;">
+        <button *ngFor="let categoryBtn of categoryBtns" ion-button round [color]="categoryBtn.selected? categoryBtn.color: categoryBtn.defaultColor" (click)="categorySelect(categoryBtn.name)" class="category_btn">{{categoryBtn.name}}</button>
+      </div>
+    </ion-buttons>
+
+    <ion-item>
+      <ion-label stacked color="customBtn1" style="font-weight: bold;">게시글 만료일 설정</ion-label>
+      <!--분류를 이벤트를 선택한 경우에만 활성화-->
+      <ion-datetime [disabled]="!categoryBtns[1].selected" displayFormat="YYYY.MM.DD HH:mm" color="darkLight" pickerFormat="YYYY.MM.DD HH:mm" cancelText="취소" doneText="확인" placeholder="OOOO.OO.OO OO:OO" [(ngModel)]="expireDate" (ionChange)="dateChange()" class="expire_date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked color="customBtn1" style="font-weight: bold;">태그 등록 (선택)</ion-label>
+      <ion-input  type="text" placeholder="태그는 최대 3개까지 등록 가능합니다." clearInput [(ngModel)]="tagContent" style="font-size: 1.3rem;"></ion-input>
+      <!--*ngIf="getTagCount() == 0"-->
+      <!--(focus)="tagFocus()" (blur)="tagBlur()"-->
+    </ion-item>
+    <!--<div style="margin-left: 20px;">
+      <div *ngFor="let tag of tags" [hidden]="!tag.visibility" (click)="tag.visibility = false" style="display: inline-block; border-radius: 8px; background-color: rgb(68, 114, 196); color:white;font-weight: bold; font-size: 1.3rem; margin: 0 5px 5px 5px; padding: 5px;">{{tag.content}}</div>
+    </div>-->
+
+    <ion-item>
+      <ion-label stacked color="customBtn1" style="font-weight: bold;">본문 작성 ({{content.length}})</ion-label>
+      <ion-textarea placeholder="내용을 입력하세요." [(ngModel)]="content" rows="10" class="content"></ion-textarea>
+    </ion-item>
+
+    <ion-label color="customBtn1" style="margin: 5px 16px; font-weight: bold; font-size: 1.2rem;">이미지 업로드 ({{getImageCount()}} / {{maxUploadCount}})</ion-label>
+
+    <div class="imgArea" style="margin-left: 24px; margin-bottom: 5px;">
+      <div *ngFor="let img of imgs" class="upload_img" [ngStyle]="{'background-image': 'url(' + img.imgNewPath + ')'}" (click)="modifyImg(img)" (press)="removeImg(img)"><img *ngIf="!img.hasImg" src="assets/btn_icon/icon_add.png" /></div>
+    </div>
+
+    <ion-item-group>
+      <div style="margin: 0 16px;">
+        <!--<span *ngIf="subContent != null" style="color: #696969; font-size: 1rem; font-weight: bold;">(왼쪽으로 당겨서 수정/삭제 가능)</span>-->
+        <ion-label stacked color="customBtn1" style="font-weight: bold;">투표/설문 추가 </ion-label>
+        <!--<ion-label *ngIf="subContent == null" color="darkLight2" (click)="chooseSubFunctionPrompt()" style="font-size: 1rem; font-weight: bold; margin: 5px;">투표나 설문 조사 등의 기능을 추가하시려면 여기를 클릭하세요.</ion-label>-->
+      </div>
+
+      <!--추가 기능이 생성되는 부분-->
+      <!--<ion-list>
+        <ion-item-sliding #slidingItem *ngIf="subContent != null">
+          <ion-item>
+            <ion-label>
+              <span style="color: rgb(68, 114, 196); font-weight: bold;">[{{subContent.type == 'vote'? '투표': '설문 조사'}}]</span> 
+              {{subContent.title}}
+            </ion-label>
+          </ion-item>
+
+          <ion-item-options side="right">
+            <button ion-button color="customBtn1" (click)="updateSub(slidingItem)" style="color: white; font-size: 1rem; font-weight: bold;">
+              <ion-icon color="light" ios="ios-create-outline" md="ios-create-outline" wp="ios-create-outline"><br>수정</ion-icon>
+            </button>
+
+            <button ion-button color="customBtn6" (click)="removeSub()" style="color: white; font-size: 1rem; font-weight: bold;">
+              <ion-icon color="light" ios="ios-trash-outline" md="ios-trash-outline" wp="ios-trash-outline"><br>삭제</ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>-->
+
+      <ion-label *ngIf="mode == 'update' && subContent != null && !subContentChanged" style="margin-left: 24px; margin-bottom: 0px; font-weight: bold;">투표 / 설문 조사는 수정할 수 없습니다.</ion-label>
+
+      <button *ngIf="subContent == null" ion-button color="customBtn1" (click)="addSubFunction('vote')" class="sub_btn" style="margin-left: 20px;">투표</button>
+      <button *ngIf="subContent == null" ion-button color="customBtn1" (click)="addSubFunction('survey')"class="sub_btn">설문 조사</button>
+      
+      <ion-list *ngIf="subContent != null">
+        <ion-item>
+          <ion-label style="font-size: 1.2rem; font-weight: bold;">
+            <span style="color: rgb(68, 114, 196); font-weight: bold;">[{{subContent.type == 'vote'? '투표': '설문 조사'}}]</span> 
+            {{subContent.title}}
+          </ion-label>
+
+          <ion-badge *ngIf="mode != 'update' || subContentChanged" item-right color="transparent" (click)="updateSub()" style="font-size: 1rem; font-weight: bold; color: #363636">
+            <ion-icon color="dark" ios="ios-create-outline" md="ios-create-outline" wp="ios-create-outline"><br>수정</ion-icon>
+          </ion-badge>
+
+          <ion-badge item-right color="transparent" (click)="removeSub()" style="font-size: 1rem; font-weight: bold; color: #363636">
+            <ion-icon color="dark" ios="ios-trash-outline" md="ios-trash-outline" wp="ios-trash-outline"><br>삭제</ion-icon>
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+
+    </ion-item-group>
+  </ion-card>
+
+  <ion-card>
+    <ion-item style="text-align-last: right;">
+      <button ion-button clear color="darkLight2" (click)="cancel()" style="font-weight: bold; margin-right: 10px;">취소</button>
+      <button ion-button clear color="darkLight2" (click)="post()" style="font-weight: bold;">게시</button>
+    </ion-item> 
+  </ion-card>
+
+</ion-content>

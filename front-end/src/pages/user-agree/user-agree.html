@@ -1,0 +1,64 @@
+<!--
+  Generated template for the UserAgree page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<!--
+  2017.05.08 made by Youngwuk Jeon
+
+  <Update Log>
+
+
+-->
+
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>약관 및 개인정보처리방침</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <div class="logo_area">
+    <img width="300" height="120" src="assets/logo/logo_example.png" />
+  </div>
+
+  <div class="agree_area">
+
+    <div *ngFor="let item of items">
+      <ion-card>
+        <ion-card-header>
+          {{item.title}}
+        </ion-card-header>
+
+        <ion-card-content>
+          {{item.content}}
+        </ion-card-content>
+
+        <ion-item>
+          <ion-label>동의함</ion-label>
+          <ion-checkbox color="blue" [(ngModel)]="item.checked" (click)="check('one')"></ion-checkbox>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <ion-card>
+      <ion-item>
+        <ion-label>전체동의</ion-label>
+        <!--<ion-checkbox color="blue" #allCheck (ionChange)="check('all')"></ion-checkbox>-->
+        <!--위의 이벤트(ionChange)는 지금 작성한 ts부분의 로직에서는 사용불가....하나를 체크해서 상태가 변하면 다른 체크박스도 연쇄적으로 변화됨-->
+        <ion-checkbox color="blue" #allCheck (click)="check('all')"></ion-checkbox>
+      </ion-item>
+    </ion-card>
+
+    <button ion-button full round [disabled]="allAgree" color="customBtn1" #nextBtn (click)="nextPage()">다음</button>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,97 @@
+page-home-content {
+
+  .tab {
+    height: 50px;
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 2rem; 
+    color: white;
+    background-color: #66aaff
+  }
+
+  .tab_content {
+    display: inline-block;
+    width: 49%;
+    height: 50px;
+    padding: 10px;
+    background-color: #66aaff
+  }
+
+  .tab_content_selected {
+    background-color: #4488dd
+  }
+
+  .card-ios, .card-md, .card-wp {
+    width: 100%;
+    height: auto;
+    margin: 0 0 10px 0;
+  }
+
+  .filter .item-inner {
+    height: 50px;
+    min-height: 50px;
+  }
+
+  .category_btns {
+      margin: 7.5px 15px;
+      text-align-last: center;    // 전체 컴포넌트 가운데 정렬
+  }
+
+  .category_btn {
+      width: 50px;
+      height: 40px;
+      margin: 0 5px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      line-height: 20px;
+      white-space: pre;
+  }
+
+  .profile_img {
+      border: solid 1px #696969; 
+      border-radius: 50%;
+  }
+
+  .post_type {
+    margin: 5px;
+    padding-top: 5px;
+    font-size: 1.5rem;
+    color: black;
+    vertical-align: 50%;
+  }
+
+  .contentImg  {
+      position: relative;
+      width: 100%; 
+      height: 170px;
+      background-color: black;
+  }
+
+  .contentImg img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 170px;
+      object-fit: cover;
+  }
+
+  .black_cover {
+    position: absolute; 
+    right: 0; 
+    top: 0; 
+    width: 30%; 
+    height: inherit;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .centered { 
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+}

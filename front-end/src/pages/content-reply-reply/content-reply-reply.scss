@@ -1,0 +1,52 @@
+/*
+2017.05.17 made by Youngwuk Jeon
+
+  <Update Log>
+
+
+*/
+
+
+page-content-reply-reply {
+
+  .profile_img {
+    border: solid 1px #696969; 
+    border-radius: 50%;
+  }
+
+  .reply_content {
+    margin: 0 10px 5px 80px; 
+    color: black; 
+    font-size: 1.4rem;
+  }
+
+  .like_btn {
+      display: inline-block;  
+      width: auto;
+      height: auto;
+      min-height: auto;
+      margin-left: 10px;
+      padding-left: 5px;
+      padding-right: 5px;
+      font-size: 1.3rem;
+      color: black;
+      // font-weight: bold;
+  }
+
+  .like_btn .item-inner {
+    height: 30px;
+  }
+
+  hr {
+    margin-bottom: 0px;
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  .reply_btn {
+    height: 30px;
+    min-height: auto;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+}
